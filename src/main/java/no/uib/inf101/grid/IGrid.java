@@ -29,4 +29,6 @@ public interface IGrid<E> extends GridDimension, Iterable<GridCell<E>> {
   * @return true if the coordinate is within bounds, false otherwise
   */
   boolean positionIsOnGrid(CellPosition pos);
+
+  
 }
