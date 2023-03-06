@@ -89,12 +89,9 @@ public final class Tetromino implements Iterable<GridCell<Character>> {
     public Tetromino shiftedBy(int deltaRow, int deltaCol) {
         return new Tetromino(c, shape, new CellPosition(pos.row() + deltaRow, pos.col() + deltaCol));
     }
-// Opprett også en metode shiftedToTopCenterOf som har en parameter av typen GridDimension. La metoden opprette en flyttet kopi som er sentrert rundt midterste eller de to midterste kolonnene i et rutenett med de gitte dimensjonene, og som er slik at øverste reelle rute i brikken kommer på rad 0.
-// not use getwidth() and getheight() because they are not in the interface
+
     public Tetromino shiftedToTopCenterOf (GridDimension dim){
-        int row = 0;
-        int col = (dim.cols() - shape[0].length) / 2;
-        return new Tetromino(c, shape, new CellPosition(row, col));
+        return new Tetromino(c, shape, new CellPosition(-1, dim.cols() / 2 - shape.length/2));
     }
 
     @Override

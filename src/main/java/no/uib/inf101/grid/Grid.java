@@ -6,13 +6,13 @@ import java.util.List;
 
 public class Grid<E> implements IGrid<E> {
     private final List<List<E>> grid;
-    private int rows;
-    private int cols;
+    private final int rows;
+    private final int cols;
 
     // konstruktør #1 
-    public Grid(int rows, int cols) {
-        this (rows, cols, null);
-    }
+    // public Grid(int rows, int cols) {
+    //     this (rows, cols, null);
+    // }
    
     public Grid(int rows, int cols, E defaultValue) {
         this.rows = rows;
@@ -22,6 +22,18 @@ public class Grid<E> implements IGrid<E> {
             grid.add(new ArrayList<>());
             for(int j = 0; j < cols; j++){
                 grid.get(i).add(defaultValue);
+            }
+        }
+    }
+
+    public Grid(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        grid = new ArrayList<>();
+        for (int i = 0; i < rows; i++){
+            grid.add(new ArrayList<>());
+            for(int j = 0; j < cols; j++){
+                grid.get(i).add(null);
             }
         }
     }
@@ -42,13 +54,13 @@ public class Grid<E> implements IGrid<E> {
     // metode som returnerer en iterator over alle cellene
     @Override
     public Iterator<GridCell<E>> iterator() {
-        List<GridCell<E>> list = new ArrayList<GridCell<E>>();
+        ArrayList<GridCell<E>> list = new ArrayList<GridCell<E>>();
         for (int i = 0; i < rows; ++i){
             for(int j = 0; j < cols; ++j){
                 CellPosition pos = new CellPosition(i, j);
-                list.add(new GridCell<E>(pos, get(pos)));
+                list.add(new GridCell<>(pos, grid.get(i).get(j)));
+            }
         }
-    }
         return list.iterator();
     }
     // metode som returnerer en iterator over alle cellene i en gitt rad
@@ -59,7 +71,7 @@ public class Grid<E> implements IGrid<E> {
 
     @Override
     public E get(CellPosition pos) {
-        return this.grid.get(pos.row()).get(pos.col());
+        return grid.get(pos.row()).get(pos.col());
 
     }
 

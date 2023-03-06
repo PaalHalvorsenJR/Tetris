@@ -2,11 +2,9 @@ package no.uib.inf101.grid;
 
 public record GridCell<E>(CellPosition pos, E value) {
 
-    public E get(int col) {
+    public CellPosition getPos() {
         return null;
     }
-    
-    public void set(int col, E value2) {
-    }
-
 }
+
+    

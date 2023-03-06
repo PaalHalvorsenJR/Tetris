@@ -6,7 +6,10 @@ public interface ViewableTetrisModel {
 
     public GridDimension getDimension();
 
-    public Iterable<GridCell<Character>> getTitlesOnBoard();
+    public Iterable<GridCell<Character>> getTilesOnBoard();
+
+    public Iterable<GridCell<Character>> getTilesOnTetromino();
+
 
 }
 
