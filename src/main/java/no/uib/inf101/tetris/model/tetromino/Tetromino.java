@@ -26,25 +26,26 @@ public final class Tetromino implements Iterable<GridCell<Character>> {
     public static Tetromino newTetromino(char c) {
         if (c == 'I'){
             return new Tetromino(c, new Boolean[][]{    
-            {false, true, false},
-            {false, true, false},
-            {false, true, false}},
+            {false, false, false, false},
+            {true, true, true, true},
+            {false, false, false, false},
+            {false, false, false, false}},
             new CellPosition(0, 0)
             );
         }
         else if (c == 'J'){
             return new Tetromino(c, new Boolean[][]{    
-            {false, true, false},
-            {false, true, false},
-            {true, true, false}},
+            {false, false, false},
+            {true, true, true},
+            {false, false, true}},
             new CellPosition(0, 0)
             );
         }
         else if (c == 'L'){
             return new Tetromino(c, new Boolean[][]{    
-            {false, true, false},
-            {false, true, false},
-            {false, true, true}},
+            {false, false, false},
+            {true, true, true},
+            {true, false, false}},
             new CellPosition(0, 0)
             );
         
@@ -109,6 +110,16 @@ public final class Tetromino implements Iterable<GridCell<Character>> {
         }
         return cells.iterator();
     }
+
+    public Tetromino rotate(){
+        Boolean[][] newShape = new Boolean[shape.length][shape[0].length];
+        for (int i = 0; i < shape.length; i++) {
+            for (int j = 0; j < shape[i].length; j++) {
+                newShape[i][j] = shape[shape.length - j - 1][i];
+            }
+        }
+        return new Tetromino(c, newShape, pos);
+    } 
 
     @Override
     public int hashCode() {

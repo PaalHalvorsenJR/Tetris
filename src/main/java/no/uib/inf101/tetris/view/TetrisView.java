@@ -33,10 +33,10 @@ public class TetrisView extends JPanel {
     }
     public void drawGame(Graphics2D g2d) {
         double margin = 2;
-        double x = margin;
-        double y = margin;
-        double width = this.getWidth() - 2 * margin;
-        double height = this.getHeight() - 2 * margin;
+        double x = margin * 5;
+        double y = margin * 5;
+        double width = this.getWidth() - 10 * margin;
+        double height = this.getHeight() - 10 * margin;
         Rectangle2D rect = new Rectangle2D.Double(x, y, width, height);
 
         g2d.setColor(colorT.getFrameColor());
