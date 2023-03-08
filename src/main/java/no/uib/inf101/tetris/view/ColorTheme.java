@@ -5,6 +5,7 @@ public interface ColorTheme {
     public Color getCellColor(char c);
     public Color getBackgroundColor();
     public Color getFrameColor();
+    // public Color getFadedGameOver();
 
 
 

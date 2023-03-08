@@ -1,10 +1,15 @@
 package no.uib.inf101.tetris.view;
 import javax.swing.JPanel;
+import javax.swing.plaf.FontUIResource;
+
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
 
 import no.uib.inf101.grid.GridCell;
+import no.uib.inf101.tetris.model.tetromino.GameState;
+
 import java.awt.geom.Rectangle2D;
 
 public class TetrisView extends JPanel { 
@@ -46,8 +51,22 @@ public class TetrisView extends JPanel {
         
         drawcells(g2d, model.getTilesOnBoard(), cellPos, colorT);
         drawcells(g2d, model.getTilesOnTetromino(), cellPos, colorT);
+
+        if (model.getGameState() == GameState.GAME_OVER) {
+            drawGameOver(g2d);
+        }
     }
 
+    public void drawGameOver(Graphics2D g2d) {
+    
+        g2d.setColor(colorT.getFrameColor());
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 50));
+        g2d.drawString("Game Over", 18, 250);
+
+    }
+    
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
