@@ -22,6 +22,7 @@ public class TetrisSong implements Runnable {
         this.doPlayMidi(song, true);
     }
 
+
     private void doPlayMidi(final InputStream is, final boolean loop) {
         try {
             this.doStopMidiSounds();

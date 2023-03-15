@@ -15,10 +15,10 @@ public class TetrisMain {
   
   public static void main(String[] args) {
     TetrisBoard board = new TetrisBoard(20, 10);
-    board.set(new CellPosition(0, 0), 'L');
-    board.set(new CellPosition(0, 9), 'J');
-    board.set(new CellPosition(19, 0), 'Z');
-    board.set(new CellPosition(19, 9), 'I');
+    // board.set(new CellPosition(0, 0), 'L');
+    // board.set(new CellPosition(0, 9), 'J');
+    // board.set(new CellPosition(19, 0), 'Z');
+    // board.set(new CellPosition(19, 9), 'I');
     TetrominoFactory factory = new RandomTetrominoFactory();
     TetrisModel model = new TetrisModel(board, factory);
     TetrisView tetrisView = new TetrisView(model);

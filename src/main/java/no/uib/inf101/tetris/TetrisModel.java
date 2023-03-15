@@ -5,13 +5,17 @@ import javax.swing.text.AttributeSet.ColorAttribute;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
+
 import no.uib.inf101.tetris.model.tetromino.GameState;
 import no.uib.inf101.tetris.model.tetromino.Tetromino;
 import no.uib.inf101.tetris.model.tetromino.TetrominoFactory;
 
+import no.uib.inf101.tetris.TetrisBoard;
+
 import no.uib.inf101.tetris.view.ViewableTetrisModel;
 
 import no.uib.inf101.tetris.controller.ControllableTetrisModel;
+
 
 
 public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel{
@@ -19,14 +23,16 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     private final TetrisBoard board;
     private final TetrominoFactory tetrominoFactory;
     private Tetromino currentTetromino;
-    private GameState gameState = GameState.ACTIVE_GAME;
+    private GameState gameState;
+    private TetrisModel tetrisModel;
+
 
     public TetrisModel(TetrisBoard board, TetrominoFactory tetrominoFactory) {
         this.board = board;
         this.tetrominoFactory = tetrominoFactory;
         this.currentTetromino = tetrominoFactory.getNext().shiftedToTopCenterOf(board);
         this.gameState = GameState.ACTIVE_GAME;
-        
+        this.tetrisModel = tetrisModel;    
     }
 
     @Override
@@ -61,17 +67,19 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     public boolean dropTetromino(){
         while (moveTetromino(1, 0)){}
             placeTetromino();
+            board.removeFullRows();
+            callNewTetromino();
             return true;
     }
-
 
     public void placeTetromino(){
         for (GridCell<Character> cell : currentTetromino){
             CellPosition pos = cell.pos();
             board.set(pos, cell.value());
-        } callNewTetromino();
+        } 
+        // board.removeFullRows();
     } 
-    
+
     private void callNewTetromino() {
         if (isLegalMove(tetrominoFactory.getNext().shiftedToTopCenterOf(board))){
             currentTetromino = tetrominoFactory.getNext().shiftedToTopCenterOf(board);
@@ -80,6 +88,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
             gameState = GameState.GAME_OVER;
         } 
     }
+
 
 // Hint: når du skal implementere metoden som returnerer noe med typen GridDimension som inneholder antall rader og kolonner -- har du tilfeldigvis et objekt med denne typen allerede som du enkelt kan returnere? :think:
     @Override
@@ -106,6 +115,33 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     public boolean isGameOver() {
         return gameState == GameState.GAME_OVER;
     }
+
+    @Override
+    public int getTickIntervalMilliseconds() {
+        return 1000;
+    }
+
+    @Override
+    public void clockTick() {
+        if (gameState == GameState.ACTIVE_GAME){
+            getTickIntervalMilliseconds();
+            if (!moveTetromino(1, 0)){
+                placeTetromino();
+                board.removeFullRows();
+                callNewTetromino();
+            }
+        }
+    }
+
+    @Override
+    public boolean pause() {
+        if (gameState == GameState.ACTIVE_GAME){
+            gameState = GameState.PAUSED;
+            return true;
+        }
+        return false;
+    }
 }
+
 
 

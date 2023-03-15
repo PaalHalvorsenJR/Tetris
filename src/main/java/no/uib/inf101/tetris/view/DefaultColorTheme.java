@@ -2,10 +2,10 @@ package no.uib.inf101.tetris.view;
 
 import java.awt.Color;
 
-import no.uib.inf101.tetris.model.tetromino.GameState;
+
 
 public class DefaultColorTheme implements ColorTheme {
-
+    
     @Override
     public Color getCellColor(char c) {
     Color color = switch(c) {
@@ -32,17 +32,11 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override
     public Color getFrameColor() {
-        if (GameState.GAME_OVER == GameState.GAME_OVER)
-        {
-            return (new Color(0,0,0,200));
-        }
-        else{
-            return (new Color(0,0,0,0));
-            }
-        }
+        return (new Color(0,0,0,128));
 
-        // public Color getFadedGameOver() {
-        //     return new Color(0,0, 0, 128);
-        // }
+
+    }
+
 }
+
 

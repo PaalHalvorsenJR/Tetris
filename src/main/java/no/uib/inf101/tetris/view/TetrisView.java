@@ -10,22 +10,36 @@ import java.awt.Graphics;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.tetris.model.tetromino.GameState;
 
+import no.uib.inf101.tetris.TetrisBoard;
+import no.uib.inf101.tetris.TetrisModel;
+
 import java.awt.geom.Rectangle2D;
 
+
 public class TetrisView extends JPanel { 
+    int width = 500;
+    int height = 1000;
+
     private final ColorTheme colorT;
     private final ViewableTetrisModel model;
+    private  TetrisBoard board;
+
+
 
    
 // opprett en instansvariabel av typen ColorTheme
     public TetrisView(ViewableTetrisModel model) {
         this.model = model;
+        // this.tetrisModel = tetrisModel;
+        this.board = board;
+
         colorT = new DefaultColorTheme();
         colorT.getBackgroundColor();
         
-        this.setFocusable(true);
         
-        this.setPreferredSize(new Dimension(300, 600));
+        this.setFocusable(true);
+        this.setPreferredSize(new Dimension(width, height));
+        
     }
 
     public static void drawcells(Graphics2D g2d, Iterable<GridCell<Character>> cells, 
@@ -52,8 +66,11 @@ public class TetrisView extends JPanel {
         drawcells(g2d, model.getTilesOnBoard(), cellPos, colorT);
         drawcells(g2d, model.getTilesOnTetromino(), cellPos, colorT);
 
+        // drawPoints(g2d);
+        // drawPoints(g2d);
         if (model.getGameState() == GameState.GAME_OVER) {
             drawGameOver(g2d);
+            // drawPoints(g2d);
         }
     }
 
@@ -63,7 +80,15 @@ public class TetrisView extends JPanel {
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         g2d.setColor(Color.WHITE);
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 50));
-        g2d.drawString("Game Over", 18, 250);
+        g2d.drawString("Game Over", 120 , height / 2 );
+
+    }
+
+    public void drawPoints(Graphics2D g2d) {
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20));
+        g2d.drawString("Score: " + board.getRowsRemoved(),  320, height / 2 );
+        
 
     }
     

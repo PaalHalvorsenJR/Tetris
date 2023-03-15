@@ -27,7 +27,7 @@ public final class Tetromino implements Iterable<GridCell<Character>> {
         if (c == 'I'){
             return new Tetromino(c, new Boolean[][]{    
             {false, false, false, false},
-            {true, true, true, true},
+        {true, true, true, true},
             {false, false, false, false},
             {false, false, false, false}},
             new CellPosition(0, 0)
