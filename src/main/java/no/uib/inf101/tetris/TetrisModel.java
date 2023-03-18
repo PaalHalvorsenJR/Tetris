@@ -1,7 +1,5 @@
 package no.uib.inf101.tetris;
 
-import javax.swing.text.AttributeSet.ColorAttribute;
-
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
@@ -9,8 +7,6 @@ import no.uib.inf101.grid.GridDimension;
 import no.uib.inf101.tetris.model.tetromino.GameState;
 import no.uib.inf101.tetris.model.tetromino.Tetromino;
 import no.uib.inf101.tetris.model.tetromino.TetrominoFactory;
-
-import no.uib.inf101.tetris.TetrisBoard;
 
 import no.uib.inf101.tetris.view.ViewableTetrisModel;
 
@@ -24,26 +20,30 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     private final TetrominoFactory tetrominoFactory;
     private Tetromino currentTetromino;
     private GameState gameState;
-    private TetrisModel tetrisModel;
+    private int score = 0;
+    private int tickInterval = 1000;
+    
 
 
     public TetrisModel(TetrisBoard board, TetrominoFactory tetrominoFactory) {
         this.board = board;
         this.tetrominoFactory = tetrominoFactory;
-        this.currentTetromino = tetrominoFactory.getNext().shiftedToTopCenterOf(board);
-        this.gameState = GameState.ACTIVE_GAME;
-        this.tetrisModel = tetrisModel;    
+        this.currentTetromino = tetrominoFactory.getNext(); 
+        currentTetromino = currentTetromino.shiftedToTopCenterOf(board);
+        gameState = GameState.ACTIVE_GAME;  
     }
 
-    @Override
+
     public boolean moveTetromino(int deltaRow, int deltaCol) {
         Tetromino newTetromino = currentTetromino.shiftedBy(deltaRow, deltaCol);
         if (isLegalMove(newTetromino)){
             currentTetromino = newTetromino;
             return true;
-        }
+        } 
+
         return false;
     }
+
 
     public boolean isLegalMove(Tetromino tetromino){
         for (GridCell<Character> cell : tetromino){
@@ -65,11 +65,16 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     // Spillet er over når det ikke er plass til å hente en ny fallende brikke.
 
     public boolean dropTetromino(){
-        while (moveTetromino(1, 0)){}
+        int tempScore = 0;
+        while (moveTetromino(1, 0));{}
+
             placeTetromino();
-            board.removeFullRows();
+            tempScore = board.removeFullRows();
+            lol(tempScore);
+            score();
             callNewTetromino();
             return true;
+            
     }
 
     public void placeTetromino(){
@@ -77,19 +82,35 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
             CellPosition pos = cell.pos();
             board.set(pos, cell.value());
         } 
-        // board.removeFullRows();
     } 
 
+    public int score(){
+        return this.score;
+    }
+
+
+    private void lol(int i){ 
+        score += i * i * 100;
+            if (score >= 100){
+            this.tickInterval -= 500;
+            tickInterval = Math.max(tickInterval, 100);
+        }
+    }
+
     private void callNewTetromino() {
-        if (isLegalMove(tetrominoFactory.getNext().shiftedToTopCenterOf(board))){
-            currentTetromino = tetrominoFactory.getNext().shiftedToTopCenterOf(board);
-        } else {  
+        Tetromino newFallingTetromino = tetrominoFactory.getNext();
+        newFallingTetromino = newFallingTetromino.shiftedToTopCenterOf(board);
+        if (isLegalMove(newFallingTetromino)) {
+            currentTetromino = newFallingTetromino;
+            return;
+        }
+            else {  
             // Spillet er over når det ikke er plass til å hente en ny fallende brikke.
             gameState = GameState.GAME_OVER;
         } 
     }
 
-
+    
 // Hint: når du skal implementere metoden som returnerer noe med typen GridDimension som inneholder antall rader og kolonner -- har du tilfeldigvis et objekt med denne typen allerede som du enkelt kan returnere? :think:
     @Override
     public GridDimension getDimension(){ 
@@ -118,30 +139,19 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
     @Override
     public int getTickIntervalMilliseconds() {
-        return 1000;
+        return tickInterval;
     }
-
+    //hver gang poengene øker med 1000, skal tetris-tiden gå ned med 900 millisekunder.
     @Override
     public void clockTick() {
-        if (gameState == GameState.ACTIVE_GAME){
-            getTickIntervalMilliseconds();
-            if (!moveTetromino(1, 0)){
-                placeTetromino();
-                board.removeFullRows();
-                callNewTetromino();
+        if(!moveTetromino(1, 0)){
+            placeTetromino();
+            board.removeFullRows();
+            callNewTetromino();
             }
         }
-    }
-
-    @Override
-    public boolean pause() {
-        if (gameState == GameState.ACTIVE_GAME){
-            gameState = GameState.PAUSED;
-            return true;
-        }
-        return false;
-    }
+        
 }
-
+    
 
 

@@ -12,18 +12,19 @@ import no.uib.inf101.tetris.model.tetromino.GameState;
 
 import no.uib.inf101.tetris.midi.TetrisSong;
 
+import no.uib.inf101.tetris.TetrisModel;
+
 
 public class TetrisController implements KeyListener {
     private final TetrisView view;
     private final ControllableTetrisModel model;
-    private final Timer timer;
+    private Timer timer;
     private TetrisSong song = new TetrisSong();
 
 
     public TetrisController(ControllableTetrisModel model, TetrisView view) {
         this.model = model;
         this.view = view;
-
         this.timer = new Timer(model.getTickIntervalMilliseconds(), this::clockTick);
     
         view.addKeyListener(this);
@@ -34,11 +35,10 @@ public class TetrisController implements KeyListener {
         }
     }
 
+
     public void clockTick(ActionEvent e) {
-        if (model.getGameState() == GameState.ACTIVE_GAME) {
-            model.moveTetromino(1, 0);
-            view.repaint();
-        }
+        this.model.clockTick();
+        this.view.repaint();
     }
 
     private void Delay(){
@@ -46,25 +46,23 @@ public class TetrisController implements KeyListener {
         timer.setInitialDelay(model.getTickIntervalMilliseconds());
     }
     
-
-
-
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            model.moveTetromino(0, -1);
+            this.model.moveTetromino(0, -1);
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            model.moveTetromino(0, 1);
+            this.model.moveTetromino(0, 1);
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            model.moveTetromino(1, 0);
+            this.model.moveTetromino(1, 0);
         }
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            model.rotateTetromino();
+            this.model.rotateTetromino();
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            model.dropTetromino();
+            this.model.dropTetromino();
+            this.timer.restart();
         }
         view.repaint();
         }

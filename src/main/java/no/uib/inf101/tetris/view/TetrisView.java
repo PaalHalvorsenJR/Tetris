@@ -21,17 +21,15 @@ public class TetrisView extends JPanel {
     int height = 1000;
 
     private final ColorTheme colorT;
-    private final ViewableTetrisModel model;
+    private final TetrisModel model;
     private  TetrisBoard board;
 
 
 
    
 // opprett en instansvariabel av typen ColorTheme
-    public TetrisView(ViewableTetrisModel model) {
+    public TetrisView(TetrisModel model) {
         this.model = model;
-        // this.tetrisModel = tetrisModel;
-        this.board = board;
 
         colorT = new DefaultColorTheme();
         colorT.getBackgroundColor();
@@ -67,7 +65,7 @@ public class TetrisView extends JPanel {
         drawcells(g2d, model.getTilesOnTetromino(), cellPos, colorT);
 
         // drawPoints(g2d);
-        // drawPoints(g2d);
+        drawPoints(g2d);
         if (model.getGameState() == GameState.GAME_OVER) {
             drawGameOver(g2d);
             // drawPoints(g2d);
@@ -87,9 +85,7 @@ public class TetrisView extends JPanel {
     public void drawPoints(Graphics2D g2d) {
         g2d.setColor(Color.WHITE);
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20));
-        g2d.drawString("Score: " + board.getRowsRemoved(),  320, height / 2 );
-        
-
+        g2d.drawString("Score: " + model.score(),  20,30);
     }
     
   @Override

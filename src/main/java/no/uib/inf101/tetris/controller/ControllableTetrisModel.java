@@ -40,12 +40,11 @@ public interface ControllableTetrisModel {
     */
     GameState getGameState();
 
-    boolean pause();
-
     /*
      * kaller hver gang klokken slår et klokkeslag.
      */
     void clockTick();
+
 
 }
 
