@@ -14,31 +14,50 @@ import no.uib.inf101.tetris.TetrisBoard;
 import no.uib.inf101.tetris.TetrisModel;
 
 import java.awt.geom.Rectangle2D;
-
+/** 
+* The TetrisView class is a JPanel that displays the current state of a Tetris game.
+* It extends the JPanel class and implements the drawing of the game components.
+*/
 
 public class TetrisView extends JPanel { 
+    //sets the width and height of the panel
     int width = 500;
     int height = 1000;
 
+    //sets the color theme and the model
     private final ColorTheme colorT;
     private final TetrisModel model;
     private  TetrisBoard board;
 
 
-
-   
-// opprett en instansvariabel av typen ColorTheme
+    /**
+     * Creates a new TetrisView with the given TetrisModel.
+     *
+     * @param model The TetrisModel to display.
+     */
     public TetrisView(TetrisModel model) {
         this.model = model;
 
+        // sets the color theme to the default color theme
         colorT = new DefaultColorTheme();
+
+        // sets the background color to the background color of the color theme
         colorT.getBackgroundColor();
         
-        
+        //sets the panel to be focusable and sets the preferred size
         this.setFocusable(true);
         this.setPreferredSize(new Dimension(width, height));
         
     }
+
+    /**
+     * Draws the given cells onto the given graphics context using the given converter and color theme.
+     *
+     * @param g2d    The graphics context to draw onto.
+     * @param cells  The cells to draw.
+     * @param cellPos The converter to use to convert cell positions to pixel positions.
+     * @param colors The color theme to use to draw the cells.
+     */
 
     public static void drawcells(Graphics2D g2d, Iterable<GridCell<Character>> cells, 
     CellPositionToPixelConverter cellPos, ColorTheme colors) {
@@ -48,7 +67,14 @@ public class TetrisView extends JPanel {
             g2d.fill(rect);
         }
     }
+
+    /**
+     * Draws the current state of the Tetris game onto the given graphics context.
+     *
+     * @param g2d The graphics context to draw onto.
+     */
     public void drawGame(Graphics2D g2d) {
+        // calculate the dimensions of the game board
         double margin = 2;
         double x = margin * 5;
         double y = margin * 5;
@@ -56,38 +82,98 @@ public class TetrisView extends JPanel {
         double height = this.getHeight() - 10 * margin;
         Rectangle2D rect = new Rectangle2D.Double(x, y, width, height);
 
+        // draw the game board
         g2d.setColor(colorT.getFrameColor());
         g2d.fill(rect);
         
+        // create a converter to convert cell positions to pixel positions
         CellPositionToPixelConverter cellPos = new CellPositionToPixelConverter(rect, model.getDimension(), margin);
         
+        // draw the cells on the game board and the position of the current tetromino
         drawcells(g2d, model.getTilesOnBoard(), cellPos, colorT);
         drawcells(g2d, model.getTilesOnTetromino(), cellPos, colorT);
 
-        // drawPoints(g2d);
+        //draw the score and the level
         drawPoints(g2d);
+
+        // if the game is GameOver, draw the GameOver text 
         if (model.getGameState() == GameState.GAME_OVER) {
             drawGameOver(g2d);
-            // drawPoints(g2d);
         }
-    }
+        // if the game is paused, draw the pause text
+        if (model.getGameState() == GameState.PAUSED) {
+            drawPause(g2d);
+        }
+    }   
 
+    /**
+     * Draws the game over message when the game ends.
+     * @param g2d The Graphics2D object used to draw the game over message.
+     */
     public void drawGameOver(Graphics2D g2d) {
-    
-        g2d.setColor(colorT.getFrameColor());
+        g2d.setColor(colorT.gameOverColor());
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         g2d.setColor(Color.WHITE);
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 50));
         g2d.drawString("Game Over", 120 , height / 2 );
+        g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20 ));
+        g2d.drawString("Your Score was: " + model.score(), 120 , height / 2 + 50);
 
     }
 
+    /**
+     * Draws the pause message when the game is paused.
+     * @param g2d The Graphics2D object used to draw the pause message.
+     */
+    public void drawPause(Graphics2D g2d) {
+        g2d.setColor(colorT.getFrameColor());
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 50));
+        g2d.drawString("Pause", 120 , height / 2 );
+        g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20 ));
+        g2d.drawString("Score: " + model.score(), 120 , height / 2 + 50);
+        g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20 ));
+        g2d.drawString("Press P to continue", 120 , height / 2 + 100);
+    }
+
+    /**
+     * Draws the score and the level.
+     * @param g2d The Graphics2D object used to draw the score and the level.
+     */
     public void drawPoints(Graphics2D g2d) {
         g2d.setColor(Color.WHITE);
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20));
         g2d.drawString("Score: " + model.score(),  20,30);
+        if (model.score() < 2000) {
+            g2d.drawString("Level: " + 1,  20,60);
+        }
+        else if (model.score() >= 2000) {
+            g2d.drawString("Level: " + 2,  20,60);
+        }
+        else if (model.score() >= 4000) {
+            g2d.drawString("Level: " + 3,  20,60);
+        }
+        else if (model.score() >= 6000) {
+            g2d.drawString("Level: " + 4,  20,60);
+        }
+        else if (model.score() >= 8000) {
+            g2d.drawString("Level: " + 5,  20,60);
+        }
+        else if (model.score() >= 10000) {
+            g2d.drawString("Level: " + 6,  20,60);
+        }
+        else if (model.score() >= 12000) {
+            g2d.drawString("Level: " + 7,  20,60);
+        }
+        else if (model.score() >= 14000) {
+            g2d.drawString("Level: " + 8,  20,60);
+        }
+        else if (model.score() >= 16000) {
+            g2d.drawString("Level: " + 9,  20,60);
+        }
     }
-    
+
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);

@@ -2,6 +2,9 @@ package no.uib.inf101.tetris.model.tetromino;
 
 public class RandomTetrominoFactory implements TetrominoFactory {
 
+    /**
+     * The characters that can be used to create tetrominos.
+     */
     private char[] c = {'L', 'J', 'S', 'Z', 'T', 'I', 'O'};
 
     @Override

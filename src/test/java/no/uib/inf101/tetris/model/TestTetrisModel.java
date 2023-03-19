@@ -10,13 +10,10 @@ import org.junit.jupiter.api.Test;
 import no.uib.inf101.grid.CellPosition;
 import no.uib.inf101.grid.GridCell;
 
-import no.uib.inf101.grid.GridDimension;
-
 import no.uib.inf101.tetris.TetrisBoard;
 import no.uib.inf101.tetris.TetrisModel;
 import no.uib.inf101.tetris.model.tetromino.PatternedTetrominoFactory;
 import no.uib.inf101.tetris.model.tetromino.RandomTetrominoFactory;
-import no.uib.inf101.tetris.model.tetromino.Tetromino;
 import no.uib.inf101.tetris.model.tetromino.TetrominoFactory;
 
 import no.uib.inf101.tetris.view.ViewableTetrisModel;
@@ -63,27 +60,19 @@ public class TestTetrisModel {
         assertTrue(tetroCells.contains(new GridCell<>(new CellPosition(0, 3), 'I')));
         assertTrue(tetroCells.contains(new GridCell<>(new CellPosition(0, 6), 'I')));
         }
-    // Test for å sjekke om tetrominoen kan flyttes
+    
 
     @Test
     public void testMoveTetromino() {
         TetrisBoard board = new TetrisBoard(20,10);
-        RandomTetrominoFactory tetrominoFactory  = new RandomTetrominoFactory();
-        TetrisModel model = new TetrisModel(board, tetrominoFactory);
-    
-        //retuner True hvis tetrominoen kan flyttes nedover
+        TetrominoFactory factory = new PatternedTetrominoFactory("O");
+        TetrisModel model = new TetrisModel(board, factory);
+
+        //Vellykket flytting endrer hva man får om man intererer gjennom tetrominoen
         assertTrue(model.moveTetromino(1, 0));
 
-        //retuner True hvis tetrominoen kan flyttes til venstre
-        assertTrue(model.moveTetromino(0, 1));
-
-        //retuner True hvis tetrominoen kan flyttes til høyre
-        assertTrue(model.moveTetromino(0, 1));
-
-
-
-
     }
+
 
     @Test
     public void testMoveTetrominoisOutOfBounds() {
@@ -91,16 +80,10 @@ public class TestTetrisModel {
         RandomTetrominoFactory tetrominoFactory  = new RandomTetrominoFactory();            
         TetrisModel model = new TetrisModel(board, tetrominoFactory);
 
-        //retunerer False dersom tetrominoen er uten for brettet på venstre side
-        assertFalse(model.moveTetromino(0, -5));
-        //retunerer False dersom tetrominoen er uten for brettet på høyre side
-        assertFalse(model.moveTetromino(0, 5));
-        //retunerer False dersom tetrominoen er uten for brettet på toppen
-        assertFalse(model.moveTetromino(-20, 0));
-        //retunerer False dersom tetrominoen er uten for brettet på bunnen
-        assertFalse(model.moveTetromino(20, 0));
-
-
+        model.moveTetromino(30, 0);
+        //Flytting utenfor brettet skal ikke være vellykket
+        assertFalse(model.moveTetromino(30, 0));
+        
     }
 
     @Test

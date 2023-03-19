@@ -37,7 +37,7 @@ public class TestTetromino {
     public void tetrominoIterationOfT() {
         // Create a standard 'T' tetromino placed at (10, 100) to test
         Tetromino tetro = Tetromino.newTetromino('T');
-        tetro = tetro.shiftedBy(10, 100);
+        tetro = tetro.shiftedBy(10, 10);
 
         //rotate the tetromino
         tetro = tetro.rotate();
@@ -50,17 +50,13 @@ public class TestTetromino {
 
         // Check that we got the expected GridCell objects
         assertEquals(4, objs.size());
-        assertTrue(objs.contains(new GridCell<>(new CellPosition(10, 101), 'T')));
-        assertTrue(objs.contains(new GridCell<>(new CellPosition(11, 101), 'T')));
-        assertTrue(objs.contains(new GridCell<>(new CellPosition(12, 101), 'T')));
-        assertTrue(objs.contains(new GridCell<>(new CellPosition(11, 101), 'T')));
-
-        for (GridCell<Character> gc : tetro) {
-            System.out.println(gc);
+        assertTrue(objs.contains(new GridCell<>(new CellPosition(10, 11), 'T')));
+        assertTrue(objs.contains(new GridCell<>(new CellPosition(11,11), 'T')));
+        assertTrue(objs.contains(new GridCell<>(new CellPosition(12, 11), 'T')));
+        assertTrue(objs.contains(new GridCell<>(new CellPosition(11, 10), 'T')));
             
         }
 
         
     }
 
-}

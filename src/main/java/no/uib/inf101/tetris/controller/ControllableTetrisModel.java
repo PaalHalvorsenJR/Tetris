@@ -2,49 +2,68 @@ package no.uib.inf101.tetris.controller;
 
 import no.uib.inf101.tetris.model.tetromino.GameState;
 
+/**
+*The ControllableTetrisModel interface defines methods for controlling and managing the Tetris game model.
+*/
+
 public interface ControllableTetrisModel {
 
     /**
-     * Flytter tetrominoen med deltaRow rader og deltaCol kolonner.
-     * @return true hvis flyttingen var gyldig og tetrominoen ble flyttet, ellers false.
-     */
+    *Moves the current tetromino by deltaRow rows and deltaCol columns.
+    *@param deltaRow The number of rows to move the tetromino by.
+    *@param deltaCol The number of columns to move the tetromino by.
+    *@return true if the move is valid and the tetromino was moved, false otherwise.
+    */
     boolean moveTetromino(int deltaRow, int deltaCol);
 
-
     /**
-     * Roterer tetrominoen.
-     * @return true hvis tetrominoen ble rotert, ellers false.
-     */
+    *Rotates the current tetromino.
+    *@return true if the tetromino was rotated, false otherwise.
+    */
     boolean rotateTetromino();
 
     /**
-     * Flytter tetrominoen ned til bunnen av brettet.
-     * @return true hvis tetrominoen ble flyttet, ellers false.
-     */
+    *Drops the current tetromino to the bottom of the board.
+    *@return true if the tetromino was dropped, false otherwise.
+    */
     boolean dropTetromino();
 
     /**
-     * @return true hvis spillet er ferdig, ellers false.
-     */
+    *Checks if the game is over.
+    *@return true if the game is over, false otherwise.
+    */
     boolean isGameOver();
 
-     /**
-     * Henter ut antall millisekunder mellom hvert klokkeslag.
-     * @return antall millisekunder mellom hvert klokkeslag.
-     */
+    /**
+    *Gets the number of milliseconds between each clock tick.
+     * @return The number of milliseconds between each clock tick.
+    */
     int getTickIntervalMilliseconds();
 
-    /* 
-    * Henter ut tilstanden til spillet.
-    * @return tilstanden til spillet.
+    /**
+    *Gets the current state of the game.
+    *@return The current state of the game.
     */
     GameState getGameState();
 
-    /*
-     * kaller hver gang klokken slår et klokkeslag.
-     */
+    /**
+    *Called every time the clock ticks.
+    */
+
     void clockTick();
 
+    /**
+    *sets the game state to paused.
+    */
+
+    void pauseGame();
+
+    /**
+     * sets the game state to active when paused is.
+     */
+    void startGame();
+
+    int score();
 
 }
 

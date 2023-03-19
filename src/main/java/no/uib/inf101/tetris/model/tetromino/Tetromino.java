@@ -10,18 +10,38 @@ import no.uib.inf101.grid.GridCell;
 import no.uib.inf101.grid.GridDimension;
 
 
-
+/**
+ * A tetromino is a 4x4 grid of cells, where some cells are filled and some are empty.
+ * The tetromino has a position, which is the position of the top-left cell.
+ * The tetromino has a shape, which is a 4x4 grid of booleans, where true means filled and false means empty.
+ * The tetromino has a character, which is the character used to represent the tetromino in a text-based game.
+ * 
+ */
 public final class Tetromino implements Iterable<GridCell<Character>> {
     private char c;
     private Boolean[][] shape;
     private CellPosition pos;
 
-
+    /**
+     * constructor for creating a new tetromino.
+     * 
+     * @param c The character used to represent the tetromino in a text-based game.
+     * @param shape The shape of the tetromino.
+     * @param pos the position of the tetromino.
+     */
     private Tetromino(char c, Boolean[][] shape, CellPosition pos) {
         this.c = c;
         this.shape = shape;
         this.pos = pos;
     }
+
+    /**
+     * Creates a new tetromino with the specified character.
+     * 
+     * @param c The character used to represent the tetromino in a text-based game.
+     * @return A new tetromino with the specified character.
+     * @throws IllegalArgumentException if the character is not one of the seven tetromino characters.
+     */
 
     public static Tetromino newTetromino(char c) {
         if (c == 'I'){
@@ -88,9 +108,24 @@ public final class Tetromino implements Iterable<GridCell<Character>> {
         }
     }
 
+    /**
+     * Returns a new tetromino that is shifted by the given number of rows and columns.
+     *
+     * @param deltaRow the number of rows to shift the tetromino
+     * @param deltaCol the number of columns to shift the tetromino
+     * @return a new tetromino that is shifted by the given number of rows and columns
+     */
+
     public Tetromino shiftedBy(int deltaRow, int deltaCol) {
         return new Tetromino(c, shape, new CellPosition(pos.row() + deltaRow, pos.col() + deltaCol));
     }
+
+    /**
+     * Returns a new tetromino that is shifted to the top center of the given grid.
+     *
+     * @param dim the dimension of the grid
+     * @return a new tetromino that is shifted to the top center of the given grid
+     */
 
     public Tetromino shiftedToTopCenterOf (GridDimension dim){
         return new Tetromino(c, shape, new CellPosition(-1, dim.cols() / 2 - shape.length/2));
@@ -111,6 +146,12 @@ public final class Tetromino implements Iterable<GridCell<Character>> {
         }
         return cells.iterator();
     }
+
+    /**
+     * Returns a new tetromino that is rotated 90 degrees clockwise.
+     *
+     * @return a new tetromino that is rotated 90 degrees clockwise
+     */
 
     public Tetromino rotate(){
         Boolean[][] newShape = new Boolean[shape.length][shape[0].length];

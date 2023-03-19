@@ -20,5 +20,6 @@ public class TestPatternedTetrominoFactory {
       assertEquals(Tetromino.newTetromino('T'), factory.getNext());
       assertEquals(Tetromino.newTetromino('S'), factory.getNext());
     }
+
   }
     

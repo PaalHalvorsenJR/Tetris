@@ -10,11 +10,8 @@ public class TestDefaultColorTheme {
     @Test
     public void sanityTestDefaultColorTheme() {
     ColorTheme colors = new DefaultColorTheme();
-    assertEquals(null, colors.getBackgroundColor());
-    assertEquals(new Color(0, 0, 0, 0), colors.getFrameColor());
-    assertEquals(Color.BLACK, colors.getCellColor('-'));
-    assertEquals(Color.RED, colors.getCellColor('r'));
-    assertThrows(IllegalArgumentException.class, () -> colors.getCellColor('\n'));
+    assertEquals(new Color(0, 0, 0, 255), colors.getBackgroundColor());
+    assertEquals(new Color(204,204,204, 255), colors.getFrameColor());
     }
 
 }

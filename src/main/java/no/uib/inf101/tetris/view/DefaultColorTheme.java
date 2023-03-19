@@ -2,8 +2,9 @@ package no.uib.inf101.tetris.view;
 
 import java.awt.Color;
 
-
-
+/**
+ * The DefaultColorTheme class implements the ColorTheme interface.
+ */
 public class DefaultColorTheme implements ColorTheme {
     
     @Override
@@ -18,7 +19,7 @@ public class DefaultColorTheme implements ColorTheme {
         case 'Z' -> Color.RED;
 
         // .... fyll ut dine favorittfarger
-        case '-' -> Color.BLACK;
+        case '-' -> gameOverColor();
         default -> throw new IllegalArgumentException(
             "No available color for '" + c + "'");
     };
@@ -27,15 +28,23 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override
     public Color getBackgroundColor() {
-        return null;
+        return new Color(0, 0, 0, 255);
     }
 
+    // I want to return an image here, but I don't know how to do it.
     @Override
     public Color getFrameColor() {
-        return (new Color(0,0,0,128));
-
-
+        return new Color(204,204,204, 255);
     }
+
+    @Override 
+    public Color gameOverColor(){
+        return new Color(255, 99, 71, 255);
+
+    } 
+
+
+
 
 }
 

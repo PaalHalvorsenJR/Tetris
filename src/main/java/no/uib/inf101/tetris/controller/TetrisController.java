@@ -12,8 +12,10 @@ import no.uib.inf101.tetris.model.tetromino.GameState;
 
 import no.uib.inf101.tetris.midi.TetrisSong;
 
-import no.uib.inf101.tetris.TetrisModel;
-
+/**
+*The TetrisController class is responsible for controlling the interaction between the user input and the
+*ControllableTetrisModel and TetrisView.
+*/
 
 public class TetrisController implements KeyListener {
     private final TetrisView view;
@@ -21,6 +23,12 @@ public class TetrisController implements KeyListener {
     private Timer timer;
     private TetrisSong song = new TetrisSong();
 
+    /**
+     * Constructs a TetrisController object with a ControllableTetrisModel and TetrisView.
+     *
+     * @param model The ControllableTetrisModel.
+     * @param view The TetrisView.
+     */
 
     public TetrisController(ControllableTetrisModel model, TetrisView view) {
         this.model = model;
@@ -35,37 +43,60 @@ public class TetrisController implements KeyListener {
         }
     }
 
-
+    /**
+     * Called when the timer clock ticks. Calls clockTick() in the model and repaint() in the view.
+     *
+     * @param e The ActionEvent object that represents the timer clock tick.
+     */
     public void clockTick(ActionEvent e) {
         this.model.clockTick();
         this.view.repaint();
     }
-
-    private void Delay(){
+   
+    public void Delay(){
         timer.setDelay(model.getTickIntervalMilliseconds());
         timer.setInitialDelay(model.getTickIntervalMilliseconds());
     }
     
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT 
+        && model.getGameState() == GameState.ACTIVE_GAME)  {
             this.model.moveTetromino(0, -1);
         }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT 
+        && model.getGameState() == GameState.ACTIVE_GAME) {
             this.model.moveTetromino(0, 1);
         }
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        if (e.getKeyCode() == KeyEvent.VK_DOWN 
+        && model.getGameState() == GameState.ACTIVE_GAME) {
             this.model.moveTetromino(1, 0);
         }
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
+        if (e.getKeyCode() == KeyEvent.VK_UP 
+        && model.getGameState() == GameState.ACTIVE_GAME) {
             this.model.rotateTetromino();
         }
+        if (e.getKeyCode() == KeyEvent.VK_P) {
+            if(model.getGameState() == GameState.ACTIVE_GAME) {
+                model.pauseGame();
+                timer.stop();
+            }
+            else if(model.getGameState() == GameState.PAUSED) {
+                model.startGame();
+                timer.start();
+            }
+        }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            this.model.score();
+            // if score is 100, decrease tickinterval by 500
+            
             this.model.dropTetromino();
             this.timer.restart();
+
         }
         view.repaint();
         }
+
 
     @Override
     public void keyReleased(java.awt.event.KeyEvent e) {
