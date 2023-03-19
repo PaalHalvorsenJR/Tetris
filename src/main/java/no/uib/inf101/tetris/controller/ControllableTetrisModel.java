@@ -63,7 +63,16 @@ public interface ControllableTetrisModel {
      */
     void startGame();
 
+    /**
+     * sets the game state to over.
+     */
     int score();
+
+    /**
+     * start face of the game 
+     */
+    void Welcome();
+
 
 }
 

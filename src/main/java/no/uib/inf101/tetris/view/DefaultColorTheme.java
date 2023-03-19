@@ -10,13 +10,13 @@ public class DefaultColorTheme implements ColorTheme {
     @Override
     public Color getCellColor(char c) {
     Color color = switch(c) {
-        case 'I' -> Color.CYAN;
-        case 'J' -> Color.BLUE;
-        case 'L' -> Color.ORANGE;
-        case 'O' -> Color.YELLOW;
-        case 'S' -> Color.GREEN;
-        case 'T' -> Color.MAGENTA;
-        case 'Z' -> Color.RED;
+        case 'I' -> new Color(167,235,155);
+        case 'J' -> new Color (191, 134, 255);
+        case 'L' -> new Color(255, 134, 138);
+        case 'O' -> new Color(134,198,255);
+        case 'S' -> new Color(255, 255, 134);
+        case 'T' -> new Color(255, 134, 255);
+        case 'Z' -> new Color(134, 255, 255);
 
         // .... fyll ut dine favorittfarger
         case '-' -> gameOverColor();
@@ -31,7 +31,6 @@ public class DefaultColorTheme implements ColorTheme {
         return new Color(0, 0, 0, 255);
     }
 
-    // I want to return an image here, but I don't know how to do it.
     @Override
     public Color getFrameColor() {
         return new Color(204,204,204, 255);
@@ -39,7 +38,7 @@ public class DefaultColorTheme implements ColorTheme {
 
     @Override 
     public Color gameOverColor(){
-        return new Color(255, 99, 71, 255);
+        return new Color(226, 226, 226, 255);
 
     } 
 

@@ -37,8 +37,10 @@ public class TetrisController implements KeyListener {
     
         view.addKeyListener(this);
         view.setFocusable(true);
-        timer.start();
+
+        // timer.start();
         if (model.getGameState() == GameState.ACTIVE_GAME) {
+            timer.start();
             song.run();
         }
     }
@@ -60,6 +62,7 @@ public class TetrisController implements KeyListener {
     
     @Override
     public void keyPressed(KeyEvent e) {
+        
         if (e.getKeyCode() == KeyEvent.VK_LEFT 
         && model.getGameState() == GameState.ACTIVE_GAME)  {
             this.model.moveTetromino(0, -1);
@@ -86,16 +89,24 @@ public class TetrisController implements KeyListener {
                 timer.start();
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            if(model.getGameState() == GameState.WELCOME) {
+                model.Welcome();
+                timer.start();
+            }
+        
+        }
+           
+        if (e.getKeyCode() == KeyEvent.VK_SPACE
+        && model.getGameState() == GameState.ACTIVE_GAME) {
             this.model.score();
-            // if score is 100, decrease tickinterval by 500
-            
             this.model.dropTetromino();
             this.timer.restart();
 
         }
         view.repaint();
-        }
+    }
+    
 
 
     @Override

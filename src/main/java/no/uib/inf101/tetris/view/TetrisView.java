@@ -104,6 +104,9 @@ public class TetrisView extends JPanel {
         if (model.getGameState() == GameState.PAUSED) {
             drawPause(g2d);
         }
+        if (model.getGameState() == GameState.WELCOME) {
+            drawWelcome(g2d);
+        }
     }   
 
     /**
@@ -111,13 +114,13 @@ public class TetrisView extends JPanel {
      * @param g2d The Graphics2D object used to draw the game over message.
      */
     public void drawGameOver(Graphics2D g2d) {
-        g2d.setColor(colorT.gameOverColor());
+        g2d.setColor(colorT.getFrameColor());
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         g2d.setColor(Color.WHITE);
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 50));
-        g2d.drawString("Game Over", 120 , height / 2 );
+        g2d.drawString("Game Over", 110 , height / 3 );
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20 ));
-        g2d.drawString("Your Score was: " + model.score(), 120 , height / 2 + 50);
+        g2d.drawString("Your Score was: " + model.score(), 140, height / 2 + 50);
 
     }
 
@@ -137,12 +140,22 @@ public class TetrisView extends JPanel {
         g2d.drawString("Press P to continue", 120 , height / 2 + 100);
     }
 
+    public void drawWelcome(Graphics2D g2d) {
+        g2d.setColor(colorT.getFrameColor());
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 35));
+        g2d.drawString("Welcome to Clean Tetris", 40 , height / 3 );
+        g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20 ));
+        g2d.drawString("Press 'Enter' to start", 120 , height / 2 );
+    }
+
     /**
      * Draws the score and the level.
      * @param g2d The Graphics2D object used to draw the score and the level.
      */
     public void drawPoints(Graphics2D g2d) {
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(new Color(255,134,138));
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20));
         g2d.drawString("Score: " + model.score(),  20,30);
         if (model.score() < 2000) {

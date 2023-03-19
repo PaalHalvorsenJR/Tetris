@@ -44,7 +44,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
         this.tickInterval = 0;
         this.level = 0;
 
-        gameState = GameState.ACTIVE_GAME; 
+        gameState = GameState.WELCOME; 
 
         tickInterval = calculateTickInterval(level);
         levels();
@@ -234,6 +234,12 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     public void startGame() {
         if (gameState == GameState.PAUSED)
             gameState = GameState.ACTIVE_GAME;
+    }
+
+    @Override
+    public void Welcome() {
+        if (gameState == GameState.WELCOME)
+        gameState = GameState.ACTIVE_GAME;
     }
 
 }
