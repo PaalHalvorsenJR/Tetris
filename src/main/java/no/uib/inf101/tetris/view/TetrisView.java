@@ -21,7 +21,7 @@ import java.awt.geom.Rectangle2D;
 
 public class TetrisView extends JPanel { 
     //sets the width and height of the panel
-    int width = 500;
+    int width = 502;
     int height = 1000;
 
     //sets the color theme and the model
@@ -37,6 +37,7 @@ public class TetrisView extends JPanel {
      */
     public TetrisView(TetrisModel model) {
         this.model = model;
+        this.board = board;
 
         // sets the color theme to the default color theme
         colorT = new DefaultColorTheme();
@@ -122,6 +123,8 @@ public class TetrisView extends JPanel {
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20 ));
         g2d.drawString("Your Score was: " + model.score(), 140, height / 2 + 50);
 
+        g2d.drawString("You reached level: " + model.levels(), 140, height / 2 + 100);
+        g2d.drawString("You cleared: " + board.rowsRemoved + " lines", 140, height / 2 + 150);
     }
 
     /**
@@ -131,23 +134,35 @@ public class TetrisView extends JPanel {
     public void drawPause(Graphics2D g2d) {
         g2d.setColor(colorT.getFrameColor());
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+
         g2d.setColor(Color.WHITE);
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 50));
         g2d.drawString("Pause", 120 , height / 2 );
+
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20 ));
         g2d.drawString("Score: " + model.score(), 120 , height / 2 + 50);
+
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20 ));
         g2d.drawString("Press P to continue", 120 , height / 2 + 100);
     }
 
+    /**
+     * Draws the welcome message when the game starts.
+     * @param g2d The Graphics2D object used to draw the welcome message.
+     */
     public void drawWelcome(Graphics2D g2d) {
         g2d.setColor(colorT.getFrameColor());
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+
         g2d.setColor(Color.WHITE);
-        g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 35));
-        g2d.drawString("Welcome to Clean Tetris", 40 , height / 3 );
+        g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 42));
+        g2d.drawString("Welcome to Clean Tetris", 9 , height / 3 );
+
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20 ));
-        g2d.drawString("Press 'Enter' to start", 120 , height / 2 );
+        g2d.drawString("Press 'Enter' to start", 120 , height / 2 - 50);
+        g2d.drawString("Press 'P' to pause", 120 , height / 2 );
+
+
     }
 
     /**
@@ -158,33 +173,7 @@ public class TetrisView extends JPanel {
         g2d.setColor(new Color(255,134,138));
         g2d.setFont(new FontUIResource("Arial", FontUIResource.BOLD, 20));
         g2d.drawString("Score: " + model.score(),  20,30);
-        if (model.score() < 2000) {
-            g2d.drawString("Level: " + 1,  20,60);
-        }
-        else if (model.score() >= 2000) {
-            g2d.drawString("Level: " + 2,  20,60);
-        }
-        else if (model.score() >= 4000) {
-            g2d.drawString("Level: " + 3,  20,60);
-        }
-        else if (model.score() >= 6000) {
-            g2d.drawString("Level: " + 4,  20,60);
-        }
-        else if (model.score() >= 8000) {
-            g2d.drawString("Level: " + 5,  20,60);
-        }
-        else if (model.score() >= 10000) {
-            g2d.drawString("Level: " + 6,  20,60);
-        }
-        else if (model.score() >= 12000) {
-            g2d.drawString("Level: " + 7,  20,60);
-        }
-        else if (model.score() >= 14000) {
-            g2d.drawString("Level: " + 8,  20,60);
-        }
-        else if (model.score() >= 16000) {
-            g2d.drawString("Level: " + 9,  20,60);
-        }
+        g2d.drawString("Level: " + model.levels(),  20,60);
     }
 
   @Override

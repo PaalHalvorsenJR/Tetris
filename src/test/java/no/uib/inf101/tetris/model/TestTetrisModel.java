@@ -3,7 +3,6 @@ package no.uib.inf101.tetris.model;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.junit.jupiter.api.Test;
 
 
@@ -83,6 +82,13 @@ public class TestTetrisModel {
         model.moveTetromino(30, 0);
         //Flytting utenfor brettet skal ikke være vellykket
         assertFalse(model.moveTetromino(30, 0));
+    }
+
+    @Test 
+    public void testMoveTwice(){
+        TetrisBoard board = new TetrisBoard(20,10);
+        RandomTetrominoFactory tetrominoFactory  = new RandomTetrominoFactory();            
+        TetrisModel model = new TetrisModel(board, tetrominoFactory);
         
     }
 
@@ -96,6 +102,14 @@ public class TestTetrisModel {
         assertTrue(model.dropTetromino());
     }
 
+    @Test
+    public void testScore(){
+        TetrisBoard board = new TetrisBoard(20,10);
+        RandomTetrominoFactory tetrominoFactory  = new RandomTetrominoFactory();
+        TetrisModel model = new TetrisModel(board, tetrominoFactory);
+
+        assertEquals(0, model.score()); //score skal være 0 i starten
+    }
 
 
 

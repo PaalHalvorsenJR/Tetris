@@ -42,7 +42,6 @@ public final class Tetromino implements Iterable<GridCell<Character>> {
      * @return A new tetromino with the specified character.
      * @throws IllegalArgumentException if the character is not one of the seven tetromino characters.
      */
-
     public static Tetromino newTetromino(char c) {
         if (c == 'I'){
             return new Tetromino(c, new Boolean[][]{    

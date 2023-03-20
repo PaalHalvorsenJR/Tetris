@@ -55,19 +55,19 @@ public class Grid<E> implements IGrid<E> {
         }
     }
     
-    // metode som returnerer antall rader
+    // method that returns the number of rows
     @Override
     public int rows() {
         return rows;
 
     }
-    // metode som returnerer antall kolonner
+    // method that returns the number of columns
     @Override
     public int cols() {
         return cols;
 
     }
-    // metode som returnerer en iterator over alle cellene
+    // method that returns the number of cells in the grid
     @Override
     public Iterator<GridCell<E>> iterator() {
         ArrayList<GridCell<E>> list = new ArrayList<GridCell<E>>();
@@ -79,18 +79,18 @@ public class Grid<E> implements IGrid<E> {
         }
         return list.iterator();
     }
-    // metode som returnerer en iterator over alle cellene i en gitt rad
+    // method that returns the number of cells in the grid
     @Override
     public void set(CellPosition pos, E value) {
         grid.get(pos.row()).set(pos.col(), value);
     }
-
+    // method that returns the number of cells in the grid
     @Override
     public E get(CellPosition pos) {
         return grid.get(pos.row()).get(pos.col());
 
     }
-
+    // method that returns the number of cells in the grid
     @Override
     public boolean positionIsOnGrid(CellPosition pos) {
         if (pos.row() < 0 || pos.row() >= rows || pos.col() < 0 || pos.col() >= cols) {

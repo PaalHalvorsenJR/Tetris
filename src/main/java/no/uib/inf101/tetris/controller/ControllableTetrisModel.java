@@ -49,13 +49,12 @@ public interface ControllableTetrisModel {
     /**
     *Called every time the clock ticks.
     */
-
     void clockTick();
 
+    
     /**
-    *sets the game state to paused.
-    */
-
+     *  sets the game state to paused when gameState is active.
+     */
     void pauseGame();
 
     /**

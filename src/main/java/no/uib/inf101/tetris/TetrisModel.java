@@ -24,9 +24,9 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     private final TetrominoFactory tetrominoFactory;
     private Tetromino currentTetromino;
     private GameState gameState;
-    private int score = 0;
-    // private int tickInterval;
-    private int level;
+    private int score;
+    public int level;
+
     
 
     /**
@@ -40,15 +40,10 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
         this.tetrominoFactory = tetrominoFactory;
         this.currentTetromino = tetrominoFactory.getNext(); 
         currentTetromino = currentTetromino.shiftedToTopCenterOf(board);
-        // tickinterval starts at 1000, and decreases by 500 each time score increases by 100
-        // this.tickInterval = 0;
+        this.score = 0;
         this.level = 0;
-
+ 
         gameState = GameState.WELCOME; 
-
-        // tickInterval = calculateTickInterval(level);
-        // levels();
-
         }
         
     /**
@@ -63,7 +58,6 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
             currentTetromino = newTetromino;
             return true;
         } 
-
         return false;
     }
 
@@ -103,42 +97,62 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     *Finally, return true.
     *@return True if the drop is successful, false otherwise.
     */
+
     public boolean dropTetromino(){
         int tempScore = 0;
         while (moveTetromino(1, 0)){}
-            placeTetromino();
-            tempScore = board.removeFullRows();
-            scoreSystem(tempScore);
-            // score();
-            // levels();
-            callNewTetromino();
-            System.out.println(level);
-            System.out.println(getTickIntervalMilliseconds());
+            placeTetromino(); //Places the tetromino
+            tempScore = board.removeFullRows(); //Removes the full rows
+            scoreSystem(tempScore); //Calls the score system
+            callNewTetromino(); //Calls a new tetromino
+            //Tests to check the values in the terminal
+            System.out.println("Score: " + score()); //Prints the score
+            System.out.println("Level: " + levels()); //Prints the level
+            System.out.println("Rows: " + board.getRowsRemoved()); //Prints the rows removed
+            System.out.println("Combo; " +  tempScore); //Prints the combo
+            System.out.println("Interval; " + getTickIntervalMilliseconds()); //Prints the interval
             return true;
     }
+    /**
+     * Here i defindes the levels based on the score.
+     * @return
+     */
+    public int levels() {
 
-    private int calculateTickInterval(int level) {
-        return Math.max (100, 1000 - (level - 1) * 500);
-    }
-
-    private int updateTickInterval() {
-        int tickInterval = calculateTickInterval(level);
-        return tickInterval;
-    }
-
-    public void levels(){
-        if (score() < 100 ) {
+        if (score() < 1000) {
             this.level = 1;
         }
-        else if (score() >= 100 && score() < 200) {
+        else if (score() >= 2000 && score() < 4000) {
             this.level = 2;
         }
-        else if (score() >= 200 && score() < 300) {
+        else if (score() >= 4000 && score() < 6000) {
             this.level = 3;
         }
-       updateTickInterval();
+        else if (score() >= 6000 && score() < 8000) {
+            this.level = 4;
+        }
+        else if (score() >= 8000 && score() < 10000) {
+            this.level = 5;
+        }
+        else if (score() >= 10000 && score() < 12000) {
+            this.level = 6;
+        }
+        else if (score() >= 12000 && score() < 14000) {
+            this.level = 7;
+        }
+        else if (score() >= 14000 && score() < 16000) {
+            this.level = 8;
+        }
+        else if (score() >= 16000 && score() < 18000) {
+            this.level = 9;
+        }
+        else if (score() >= 18000 && score() < 20000) {
+            this.level = 10;
+        }
 
+        return this.level;
     }
+        
     /**
     Places the current tetromino on the board.
     */
@@ -160,15 +174,20 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
     /**
      * calculate the score system.
+     * the core is 
      * @param tempScore
      */
     public void scoreSystem(int tempScore){
         score += tempScore * tempScore * 100;
     }
- 
+
     /**
      * Method for getting a new tetromino.
      * use shiftToTopCenterOf() to get the tetromino to the top center of the board.
+     * if the move is legal, the new tetromino is set to the current tetromino.
+     * if the move is not legal, the game is over. 
+     * @return
+     
      */
     private void callNewTetromino() {
         Tetromino newFallingTetromino = tetrominoFactory.getNext();
@@ -182,7 +201,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
             gameState = GameState.GAME_OVER;
         } 
     }
-
+    
     
 // Hint: når du skal implementere metoden som returnerer noe med typen GridDimension som inneholder antall rader og kolonner -- har du tilfeldigvis et objekt med denne typen allerede som du enkelt kan returnere? :think:
     @Override
@@ -209,19 +228,15 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     public boolean isGameOver() {
         return gameState == GameState.GAME_OVER;
     }
-
-    //for hver fjerde linje som blir fjernet, skal tetris-tiden gå ned med 900 millisekunder.
+    @Override
     public int getTickIntervalMilliseconds() {
-        return 1000 - board.getRowsRemoved() * 900;
-        
-        
+        return 1000 - (levels() - 1) * 100;
     }
-    //hver gang poengene øker med 1000, skal tetris-tiden gå ned med 900 millisekunder.
-    
+   
+    @Override
     public void clockTick() {
         if(!moveTetromino(1, 0)){
             placeTetromino();
-            board.removeFullRows();
             callNewTetromino();
             }
         }

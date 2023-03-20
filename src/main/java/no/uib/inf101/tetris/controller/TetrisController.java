@@ -18,10 +18,10 @@ import no.uib.inf101.tetris.midi.TetrisSong;
 */
 
 public class TetrisController implements KeyListener {
-    private final TetrisView view;
-    private final ControllableTetrisModel model;
-    public Timer timer;
-    private TetrisSong song = new TetrisSong();
+    private final TetrisView view; // The view of the game.
+    private final ControllableTetrisModel model; // The model of the game.
+    public Timer timer; 
+    private TetrisSong song = new TetrisSong(); // The song that plays during the game.
 
     /**
      * Constructs a TetrisController object with a ControllableTetrisModel and TetrisView.
@@ -31,17 +31,16 @@ public class TetrisController implements KeyListener {
      */
     //vill at den skal opptadere seg hver gang en knapp blir trykket på
     public TetrisController(ControllableTetrisModel model, TetrisView view) {
-        this.model = model;
+        this.model = model; 
         this.view = view;
-        this.timer = new Timer(model.getTickIntervalMilliseconds(), this::clockTick);
+        this.timer = new Timer(model.getTickIntervalMilliseconds(), this::clockTick); // The timer that controls the game clock.
         
-        view.addKeyListener(this);
-        view.setFocusable(true);
+        view.addKeyListener(this); // Adds a key listener to the view.
+        view.setFocusable(true); // Sets the view to be focusable.
         // timer.start();
-        song.run();
+        song.run(); // Starts the song.
         if (model.getGameState() == GameState.ACTIVE_GAME) {
-            song.run();
-            timer.start();
+            timer.start(); // Starts the timer when the game is active.
         }
     }
 
@@ -50,14 +49,19 @@ public class TetrisController implements KeyListener {
      *
      * @param e The ActionEvent object that represents the timer clock tick.
      */
+    
     public void clockTick(ActionEvent e) {
         this.model.clockTick();
         this.view.repaint();
     }
+
    
+    /**
+     * Delay method that sets the delay of the timer to the tick interval in the model.
+     */
     public void Delay(){
-        timer.setDelay(model.getTickIntervalMilliseconds());
         timer.setInitialDelay(model.getTickIntervalMilliseconds());
+        timer.setDelay(model.getTickIntervalMilliseconds());
     }
     
     @Override
