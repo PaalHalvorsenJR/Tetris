@@ -25,7 +25,7 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
     private Tetromino currentTetromino;
     private GameState gameState;
     private int score = 0;
-    private int tickInterval;
+    // private int tickInterval;
     private int level;
     
 
@@ -41,18 +41,16 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
         this.currentTetromino = tetrominoFactory.getNext(); 
         currentTetromino = currentTetromino.shiftedToTopCenterOf(board);
         // tickinterval starts at 1000, and decreases by 500 each time score increases by 100
-        this.tickInterval = 0;
+        // this.tickInterval = 0;
         this.level = 0;
 
         gameState = GameState.WELCOME; 
 
-        tickInterval = calculateTickInterval(level);
-        levels();
+        // tickInterval = calculateTickInterval(level);
+        // levels();
 
         }
         
-        // gameState = GameState.ACTIVE_GAME;  
-
     /**
     *Moves the current tetromino by the given row and column delta.
     *@param deltaRow The number of rows to move.
@@ -111,11 +109,11 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
             placeTetromino();
             tempScore = board.removeFullRows();
             scoreSystem(tempScore);
-            score();
-            levels();
+            // score();
+            // levels();
             callNewTetromino();
             System.out.println(level);
-            System.out.println(tickInterval);
+            System.out.println(getTickIntervalMilliseconds());
             return true;
     }
 
@@ -123,8 +121,9 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
         return Math.max (100, 1000 - (level - 1) * 500);
     }
 
-    private void updateTickInterval() {
-        tickInterval = calculateTickInterval(level);
+    private int updateTickInterval() {
+        int tickInterval = calculateTickInterval(level);
+        return tickInterval;
     }
 
     public void levels(){
@@ -211,9 +210,11 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
         return gameState == GameState.GAME_OVER;
     }
 
-    
+    //for hver fjerde linje som blir fjernet, skal tetris-tiden gå ned med 900 millisekunder.
     public int getTickIntervalMilliseconds() {
-        return tickInterval;
+        return 1000 - board.getRowsRemoved() * 900;
+        
+        
     }
     //hver gang poengene øker med 1000, skal tetris-tiden gå ned med 900 millisekunder.
     

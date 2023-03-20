@@ -20,7 +20,7 @@ import no.uib.inf101.tetris.midi.TetrisSong;
 public class TetrisController implements KeyListener {
     private final TetrisView view;
     private final ControllableTetrisModel model;
-    private Timer timer;
+    public Timer timer;
     private TetrisSong song = new TetrisSong();
 
     /**
@@ -29,19 +29,19 @@ public class TetrisController implements KeyListener {
      * @param model The ControllableTetrisModel.
      * @param view The TetrisView.
      */
-
+    //vill at den skal opptadere seg hver gang en knapp blir trykket på
     public TetrisController(ControllableTetrisModel model, TetrisView view) {
         this.model = model;
         this.view = view;
         this.timer = new Timer(model.getTickIntervalMilliseconds(), this::clockTick);
-    
+        
         view.addKeyListener(this);
         view.setFocusable(true);
-
         // timer.start();
+        song.run();
         if (model.getGameState() == GameState.ACTIVE_GAME) {
-            timer.start();
             song.run();
+            timer.start();
         }
     }
 
