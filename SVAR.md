@@ -3,13 +3,7 @@ For å fullføre laben, ber vi deg om å svare på følgende spørsmål. Svar p�
 ## Hva har du lært om Java og objekt-orientert programmering under arbeidet med denne oppgaven? Beskriv hvilke deloppgave(r) du jobbet med i læringsøyeblikket.
 
 <!-- ditt svar her -->
-
-
-
-
-
-
-
+Først og fremst har jeg lært mye av denne oppgaven. Det å lage noe helt fra bunnen av gjør at man får en helt annen tilnærming til koden, som gjør at oversikten, forståelsen og utførselsen blir enklere. Underveis i denne oppgaven føler jeg har fått en større forståelse om hvodan OOP fungerer. Sånn generelt føler at jeg at jeg forstår bedre hvordan de ulike objektene i kommuniserer med hverandre, og hvorfor de ulike feltene og metodene tildeles ulike aksessnivåer. i løpet av hele oppgaven har vi tildelt aksesskontroll til de ulike meotodene, og det har vært en god øvelse i å forstå hvorfor det er viktig å gjøre dette. 
 
 
 ## Hva er det neste du ønsker å lære om Java og programmering?
@@ -25,7 +19,7 @@ Ellers har jeg lyst til å bli enda flinkere på Interaktivt grafikk,noen som vi
 ## Hvilke grep gjør vi for å øke modulariteten i koden? Gi noen eksempeler.
 
 <!-- ditt svar her  -->
-Det er ulike grep vi gjør for å øke modulariteten i koden. I steden for å skrive all kode fra bunnen av, bruker vi nytte av eksisterende moduler og bibloteker. Dette resulterer i at jobben blir enklere og økt gjenbrukbarhet a koden. I denne oppganen bruker vi flere bibloteker og monduler. Import setningene øverst i koden benytter seg av pakker fra ulike bibloteker for å definere klassene som blir brukt. 
+Det er ulike grep jeg gjør for å øke modulariteten i koden. I steden for å skrive all kode fra bunnen av, bruker jeg nytte av eksisterende moduler og bibloteker. Dette resulterer i at jobben blir enklere og økt gjenbrukbarhet a koden. I denne oppganen bruker jeg flere bibloteker og monduler. Import setningene øverst i koden benytter seg av pakker fra ulike bibloteker for å definere klassene som blir brukt. 
 
 TetrisModel-klassen implementerer både ViewableTetrisModel og ControllableTetrisModel-grensesnittene. Dette bidrar til å dele opp funksjonaliteten i mindre, selvstendige deler og gjør koden mer modulær.
 
