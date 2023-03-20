@@ -3,7 +3,10 @@ For å fullføre laben, ber vi deg om å svare på følgende spørsmål. Svar p�
 ## Hva har du lært om Java og objekt-orientert programmering under arbeidet med denne oppgaven? Beskriv hvilke deloppgave(r) du jobbet med i læringsøyeblikket.
 
 <!-- ditt svar her -->
-Først og fremst har jeg lært mye av denne oppgaven. Det å lage noe helt fra bunnen av gjør at man får en helt annen tilnærming til koden, som gjør at oversikten, forståelsen og utførselsen blir enklere. Underveis i denne oppgaven føler jeg har fått en større forståelse om hvodan OOP fungerer. Sånn generelt føler at jeg at jeg forstår bedre hvordan de ulike objektene i kommuniserer med hverandre, og hvorfor de ulike feltene og metodene tildeles ulike aksessnivåer. i løpet av hele oppgaven har vi tildelt aksesskontroll til de ulike meotodene, og det har vært en god øvelse i å forstå hvorfor det er viktig å gjøre dette. 
+Først og fremst har jeg lært mye av denne oppgaven. Det å lage noe helt fra bunnen av gjør at man får en helt annen tilnærming til koden, som gjør at oversikten, forståelsen og utførselsen blir enklere. Underveis i denne oppgaven føler jeg har fått en større forståelse om hvodan OOP fungerer. Sånn generelt føler at jeg at jeg forstår bedre hvordan de ulike objektene i kommuniserer med hverandre, og hvorfor de ulike feltene og metodene tildeles ulike aksessnivåer. i løpet av hele oppgaven har vi tildelt aksesskontroll til de ulike meotodene, og det har vært en god øvelse i å forstå hvorfor det er viktig å gjøre dette.
+Jeg lærte mye om Interaktivt grafikk da vi kom til del oppgave 5, noe som jeg syntes var moro, ettersom da fikk man endelig litt output og man kunne være interaktivt med koden.
+
+
 
 
 ## Hva er det neste du ønsker å lære om Java og programmering?
@@ -11,7 +14,7 @@ Først og fremst har jeg lært mye av denne oppgaven. Det å lage noe helt fra b
 <!-- ditt svar her -->
 Jeg har veldig lyst å lære meg om nye bibloteker og utvide mine ferdigheter innen fullstack utvikling i java. Jeg synes det hørres veldig innteresant å utforske det populære javascript bibloteket React for å lære meg å bygge grensesnitt på nettet. Det å bruke java som back-end og implementere React som front-end har jeg velig lyst å mestre. 
 
-Ellers har jeg lyst til å bli enda flinkere på Interaktivt grafikk,noen som vi har brukt i denne semesteroppgaven. Interaktivt grafikk er en veldig spennende og kreativt fagfelt som jeg har lyst til å lære mer om.
+Ellers har jeg lyst til å bli enda flinkere på Interaktivt grafikk,noen som vi har brukt i denne semesteroppgaven. Interaktivt grafikk er en veldig spennende og kreativt fagfelt som jeg har lyst til å lære mer om. 
 
 
 

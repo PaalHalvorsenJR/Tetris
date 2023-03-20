@@ -105,13 +105,17 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
             tempScore = board.removeFullRows(); //Removes the full rows
             scoreSystem(tempScore); //Calls the score system
             callNewTetromino(); //Calls a new tetromino
-            //Tests to check the values in the terminal
-            System.out.println("Score: " + score()); //Prints the score
-            System.out.println("Level: " + levels()); //Prints the level
-            System.out.println("Rows: " + board.getRowsRemoved()); //Prints the rows removed
-            System.out.println("Combo; " +  tempScore); //Prints the combo
-            System.out.println("Interval; " + getTickIntervalMilliseconds()); //Prints the interval
+
             return true;
+
+
+            //Tests to check the values in the terminal
+            // System.out.println("Score: " + score()); //Prints the score
+            // System.out.println("Level: " + levels()); //Prints the level
+            // System.out.println("Rows: " + board.getRowsRemoved()); //Prints the rows removed
+            // System.out.println("Combo; " +  tempScore); //Prints the combo
+            // System.out.println("Interval; " + getTickIntervalMilliseconds()); //Prints the interval
+            // return true;
     }
     /**
      * Here i defindes the levels based on the score.
@@ -174,7 +178,9 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
 
     /**
      * calculate the score system.
-     * the core is 
+     * I have made a score system that is based on the combo.
+     * The score is calculated by the combo * the combo * 100.
+     * The score is then added to the total score.
      * @param tempScore
      */
     public void scoreSystem(int tempScore){
@@ -187,7 +193,6 @@ public class TetrisModel implements ViewableTetrisModel, ControllableTetrisModel
      * if the move is legal, the new tetromino is set to the current tetromino.
      * if the move is not legal, the game is over. 
      * @return
-     
      */
     private void callNewTetromino() {
         Tetromino newFallingTetromino = tetrominoFactory.getNext();

@@ -12,6 +12,7 @@ public class TestDefaultColorTheme {
     ColorTheme colors = new DefaultColorTheme();
     assertEquals(new Color(0, 0, 0, 255), colors.getBackgroundColor());
     assertEquals(new Color(204,204,204, 255), colors.getFrameColor());
+    
     }
 
 }

@@ -27,7 +27,6 @@ public class TetrisView extends JPanel {
     //sets the color theme and the model
     private final ColorTheme colorT;
     private final TetrisModel model;
-    private  TetrisBoard board;
 
 
     /**
@@ -37,7 +36,6 @@ public class TetrisView extends JPanel {
      */
     public TetrisView(TetrisModel model) {
         this.model = model;
-        this.board = board;
 
         // sets the color theme to the default color theme
         colorT = new DefaultColorTheme();
@@ -124,8 +122,7 @@ public class TetrisView extends JPanel {
         g2d.drawString("Your Score was: " + model.score(), 140, height / 2 + 50);
 
         g2d.drawString("You reached level: " + model.levels(), 140, height / 2 + 100);
-        g2d.drawString("You cleared: " + board.rowsRemoved + " lines", 140, height / 2 + 150);
-    }
+        }
 
     /**
      * Draws the pause message when the game is paused.

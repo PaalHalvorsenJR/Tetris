@@ -9,7 +9,7 @@ import no.uib.inf101.grid.Grid;
 
 public class TetrisBoard extends Grid<Character> {
     // The number of rows removed.
-    public int rowsRemoved = 0;
+    private int rowsRemoved = 0;
 
     /**
      * Constructs a TetrisBoard object with the specified number of rows and columns.
@@ -106,7 +106,6 @@ public class TetrisBoard extends Grid<Character> {
 
 
     }
-
 
     /**
      * Gets the number of rows removed from the board.

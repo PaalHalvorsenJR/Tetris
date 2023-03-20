@@ -49,9 +49,8 @@ public class TestTetrisBoard {
     assertEquals(expected, board.prettyString());
     }
 
-
-
-
-
-
 }
+
+
+
+
